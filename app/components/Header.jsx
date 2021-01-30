@@ -3,6 +3,8 @@ import Link from "next/link";
 import useUser from "../lib/useUser";
 import { useRouter } from "next/router";
 import fetchJson from "../lib/fetchJson";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome as fasHome, faBed as fasBed, faBath as fasBath, faCar as fasCar } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const { user, mutateUser } = useUser();
@@ -11,6 +13,15 @@ const Header = () => {
     <header>
       <nav>
         <ul>
+          <li>
+            <h3 className="title m-0 p-2">
+            <FontAwesomeIcon icon={fasHome} />
+            &nbsp;
+            Roommate Matching App
+            &nbsp;
+            <FontAwesomeIcon icon={fasHome} />
+            </h3>
+          </li>
           <li>
             <Link href="/">
               <a>Home</a>

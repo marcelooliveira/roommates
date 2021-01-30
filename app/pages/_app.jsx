@@ -1,3 +1,4 @@
+import "bootstrap/dist/css/bootstrap.css";
 import { SWRConfig } from "swr";
 import fetch from "../lib/fetchJson";
 
