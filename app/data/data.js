@@ -7,7 +7,8 @@ export const data =
     "pic": "/img/01.jpg",
     "bedrooms": 5,
     "bathrooms": 4,
-    "cars": 3
+    "cars": 3,
+    "owner": "marcelooliveira"
   },
   {
     "number": 2,
@@ -16,7 +17,8 @@ export const data =
     "pic": "/img/02.jpg",
     "bedrooms": 4,
     "bathrooms": 4,
-    "cars": 3
+    "cars": 3,
+    "owner": "Drizin"
   },
   {
     "number": 3,
@@ -25,7 +27,8 @@ export const data =
     "pic": "/img/03.jpg",
     "bedrooms": 5,
     "bathrooms": 4,
-    "cars": 4
+    "cars": 4,
+    "owner": "marcelooliveira"
   },
   {
     "number": 4,
@@ -34,7 +37,8 @@ export const data =
     "pic": "/img/04.jpg",
     "bedrooms": 5,
     "bathrooms": 4,
-    "cars": 3
+    "cars": 3,
+    "owner": "Drizin"
   },
   {
     "number": 5,
@@ -43,7 +47,8 @@ export const data =
     "pic": "/img/05.jpg",
     "bedrooms": 4,
     "bathrooms": 3,
-    "cars": 5
+    "cars": 5,
+    "owner": "marcelooliveira"
   },
   {
     "number": 6,
@@ -52,6 +57,7 @@ export const data =
     "pic": "/img/06.jpg",
     "bedrooms": 5,
     "bathrooms": 4,
-    "cars": 4
+    "cars": 4,
+    "owner": "Drizin"
   }
 ];
