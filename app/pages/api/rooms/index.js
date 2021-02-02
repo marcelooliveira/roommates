@@ -4,19 +4,15 @@ import { data as roomData } from '../../../data/data.js';
 
 export default async (req, res) => {
   
-  var dbToDelete = new loki('roommates.db');
-  dbToDelete.deleteDatabase();
-  return;
-
   var adapter = new lfsa();
-  var db = new loki('roommates.db',
+  var db = new loki('/tmp/roommates.json',
   {
     adapter: adapter,
     autoload: true,
     autoloadCallback : loadHandler
   });
   
-  // db = new loki('roommates.db', 
+  // db = new loki('/tmp/roommates.json', 
   // {
   //   adapter: adapter,
   //   autoload: true,
@@ -35,27 +31,7 @@ export default async (req, res) => {
       rooms = db.addCollection('rooms');
       rooms.insert(roomData);
       db.saveDatabase();
-
-      if (rooms === null) {
-        res.status(200).json('rooms === null');
-      }
-      else {
-        res.status(200).json(rooms.data);
-      }
-      return;
     }
     res.status(200).json(rooms.data);
   }
-
-  // res.status(200).json([{
-  //   "number": 1,
-  //   "price": 124,
-  //   "address": "4762  Francis Mine",
-  //   "pic": "/img/01.jpg",
-  //   "bedrooms": 5,
-  //   "bathrooms": 4,
-  //   "cars": 3,
-  //   "owner": "marcelooliveira"
-  // }]);
-
 };

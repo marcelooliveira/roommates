@@ -102,7 +102,6 @@ dist
 
 # TernJS port file
 .tern-port
-app/roommates.db
 
 # Local Netlify folder
 .netlify
