@@ -13,7 +13,7 @@ export default async (req, res) => {
 
   function loadHandler() {
     // if database did not exist it will be empty so I will intitialize here
-    var rooms = db.getCollection('rooms');
+    // var rooms = db.getCollection('rooms');
 
     // if (rooms === null) {
     //   rooms = db.addCollection('rooms');
