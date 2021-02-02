@@ -16,6 +16,9 @@ export default async (req, res) => {
     autosaveInterval: 10000 // 10 seconds
   });
 
+  res.status(200).json(db.filename);
+  return;
+
   function loadHandler() {
     // if database did not exist it will be empty so I will intitialize here
     var rooms = db.getCollection('rooms');
