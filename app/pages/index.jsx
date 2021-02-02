@@ -44,7 +44,7 @@ const Home = () => {
       }
     })
   
-    // myWidget.update({tags: 'room-' + [roomNumber]});
+    myWidget.update({tags: 'room-' + [roomNumber]});
     myWidget.open();
   }
   
