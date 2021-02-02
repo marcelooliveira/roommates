@@ -27,16 +27,17 @@ export default async (req, res) => {
 
     var rooms = db.getCollection('rooms');
 
-    if (rooms === null) {
-      res.status(200).json('rooms === null');
-    }
-    else {
-      res.status(200).json(rooms.data);
-    }
-    return;
     
     if (rooms === null) {
       rooms = db.addCollection('rooms');
+
+      if (rooms === null) {
+        res.status(200).json('rooms === null');
+      }
+      else {
+        res.status(200).json(rooms.data);
+      }
+      return;
       try {
           rooms.insert(roomData);
           // db.saveDatabase();
