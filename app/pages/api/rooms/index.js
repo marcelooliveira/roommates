@@ -8,18 +8,20 @@ export default async (req, res) => {
   var adapter = new lfsa();
 
   let db;
-  try {
-    db = new loki('roommates.db', 
-    {
-      adapter: adapter,
-      autoload: true,
-      autoloadCallback : loadHandler,
-      autosave: true, 
-      autosaveInterval: 10000 // 10 seconds
-    });
-  } catch (error) {
-    console.log(error);
-  }
+    db = new loki('roommates.db'); 
+
+  // try {
+  //   db = new loki('roommates.db', 
+  //   {
+  //     adapter: adapter,
+  //     autoload: true,
+  //     autoloadCallback : loadHandler,
+  //     autosave: true, 
+  //     autosaveInterval: 10000 // 10 seconds
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  // }
 
   function loadHandler() {
     // if database did not exist it will be empty so I will intitialize here
