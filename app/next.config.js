@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const cloudinaryCloudName = process.env.CLOUDINARY_CLOUD_NAME;
 const cloudinaryUploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET;
+const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
   distDir: 'dist',
