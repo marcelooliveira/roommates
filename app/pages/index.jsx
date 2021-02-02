@@ -10,6 +10,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { default as NumberFormat } from 'react-number-format';
 import useSWR from 'swr'
 import useUser from "../lib/useUser";
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -20,6 +23,30 @@ const Home = () => {
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
+  const uploadMediaClick = (roomNumber) => {
+
+    console.log(publicRuntimeConfig.cloudinaryCloudName);
+    console.log(publicRuntimeConfig.cloudinaryUploadPreset);
+
+    var myWidget = cloudinary.createUploadWidget({
+      cloudName: publicRuntimeConfig.cloudinaryCloudName,
+      upload_preset: publicRuntimeConfig.cloudinaryUploadPreset,
+      showAdvancedOptions: true
+    }, (error, result) => { 
+      
+      console.log('result.event: ' + result.event);
+      if (result.event == "success") {
+        console.log(result.info);
+      } 
+      else {
+        console.log(error);
+      }
+    })
+  
+    myWidget.update({tags: 'room-' + [roomNumber]});
+    myWidget.open();
+  }
+  
   return (
     <Layout>
       <div className="component-container p-4">
@@ -31,7 +58,10 @@ const Home = () => {
               if (user.login === room.owner) {
                 buttons = 
                 <Row>
-                  <Button size="sm"><FontAwesomeIcon icon={fasUpload} />&nbsp;Upload Video</Button>
+                  <button 
+                    name="upload_widget" 
+                    className="btn btn-primary btn-sm"
+                    onClick={uploadMediaClick.bind(this, room.number)}><FontAwesomeIcon icon={fasUpload} />&nbsp;Upload Video</button>
                   &nbsp;
                   <Button size="sm" className="btn-success"><FontAwesomeIcon icon={fasPlay} />&nbsp;Play Video</Button>
                 </Row>;
@@ -50,6 +80,7 @@ const Home = () => {
                     <Card.Body>
                       <h5 className="card-title">
                         <NumberFormat value={room.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                        &nbsp;/&nbsp;week
                         <FontAwesomeIcon icon={farHeart} className="text-danger float-right" />
                       </h5>
                       <Card.Text><b>{room.address}</b></Card.Text>
