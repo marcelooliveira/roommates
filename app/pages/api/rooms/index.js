@@ -20,9 +20,10 @@ export default async (req, res) => {
       try {
         // roomData.forEach(room => {
           rooms.insert(roomData);
-          // db.saveDatabase();
+          db.saveDatabase();
         // });
-      } catch (error) {               
+      } catch (error) {
+        res.status(200).json(error);
       }
     }
     res.status(200).json(rooms.data);
