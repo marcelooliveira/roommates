@@ -4,6 +4,10 @@ import { data as roomData } from '../../../data/data.js';
 
 export default async (req, res) => {
   
+  var dbToDelete = new loki('roommates.db');
+  dbToDelete.deleteDatabase();
+  return;
+
   var adapter = new lfsa();
   var db = new loki('roommates.db',
   {
@@ -26,11 +30,11 @@ export default async (req, res) => {
     // if database did not exist it will be empty so I will intitialize here
 
     var rooms = db.getCollection('rooms');
-
     
     if (rooms === null) {
       rooms = db.addCollection('rooms');
       rooms.insert(roomData);
+      db.saveDatabase();
 
       if (rooms === null) {
         res.status(200).json('rooms === null');
