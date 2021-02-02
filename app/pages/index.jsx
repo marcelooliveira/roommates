@@ -31,7 +31,7 @@ const Home = () => {
     var myWidget = cloudinary.createUploadWidget({
       cloudName: publicRuntimeConfig.cloudinaryCloudName,
       upload_preset: publicRuntimeConfig.cloudinaryUploadPreset,
-      showAdvancedOptions: true
+      showAdvancedOptions: false
     }, (error, result) => { 
       
       console.log('error: ' + error);
@@ -44,7 +44,7 @@ const Home = () => {
       }
     })
   
-    myWidget.update({tags: 'room-' + [roomNumber]});
+    // myWidget.update({tags: 'room-' + [roomNumber]});
     myWidget.open();
   }
   
