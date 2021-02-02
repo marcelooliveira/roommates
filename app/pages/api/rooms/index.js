@@ -3,6 +3,9 @@ import { data as roomData } from '../../../data/data.js';
 
 export default async (req, res) => {
 
+  res.status(200).json(loki);
+  return;
+
   var db = new loki('roommates.db', 
     {
       autoload: true,
