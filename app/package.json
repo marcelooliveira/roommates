@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lokijs": "^1.5.3",
     "next": "10.0.3",
     "next-iron-session": "4.1.10",
     "node-fetch": "2.6.1",
