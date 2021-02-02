@@ -11,7 +11,6 @@ export default async (req, res) => {
     autoload: true,
     autoloadCallback : loadHandler
   });
-
   
   // db = new loki('roommates.db', 
   // {
@@ -23,11 +22,18 @@ export default async (req, res) => {
   // });
 
   function loadHandler() {
-    res.status(200).json(db.filename);
-    return;
-
+    
     // if database did not exist it will be empty so I will intitialize here
+
     var rooms = db.getCollection('rooms');
+
+    if (rooms === null) {
+      res.status(200).json('rooms === null');
+    }
+    else {
+      res.status(200).json(rooms.data);
+    }
+    return;
     
     if (rooms === null) {
       rooms = db.addCollection('rooms');
