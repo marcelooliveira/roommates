@@ -1,17 +1,17 @@
 import loki from 'lokijs';
-import LokiMemoryAdapter from 'lokijs';
 import lfsa from 'lokijs/src/loki-fs-structured-adapter';
 import { data as roomData } from '../../../data/data.js';
 
 export default async (req, res) => {
   
+  var adapter = new lfsa();
   var db = new loki('roommates.db',
   {
+    adapter: adapter,
     autoload: true,
     autoloadCallback : loadHandler
   });
 
-  // var adapter = new lfsa();
   
   // db = new loki('roommates.db', 
   // {
