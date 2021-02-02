@@ -9,6 +9,18 @@ export default async (req, res) => {
 
   let db;
     db = new loki('roommates.db'); 
+    var rooms = db.getCollection('rooms');
+    
+    if (rooms === null) {
+      rooms = db.addCollection('rooms');
+      try {
+          rooms.insert(roomData);
+          // db.saveDatabase();
+      } catch (error) {
+        res.status(200).json(error);
+      }
+    }
+    res.status(200).json(rooms.data);
 
   // try {
   //   db = new loki('roommates.db', 
@@ -39,15 +51,15 @@ export default async (req, res) => {
     // res.status(200).json(rooms.data);
   }
 
-  res.status(200).json([{
-    "number": 1,
-    "price": 124,
-    "address": "4762  Francis Mine",
-    "pic": "/img/01.jpg",
-    "bedrooms": 5,
-    "bathrooms": 4,
-    "cars": 3,
-    "owner": "marcelooliveira"
-  }]);
+  // res.status(200).json([{
+  //   "number": 1,
+  //   "price": 124,
+  //   "address": "4762  Francis Mine",
+  //   "pic": "/img/01.jpg",
+  //   "bedrooms": 5,
+  //   "bathrooms": 4,
+  //   "cars": 3,
+  //   "owner": "marcelooliveira"
+  // }]);
 
 };

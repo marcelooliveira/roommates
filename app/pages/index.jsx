@@ -25,9 +25,6 @@ const Home = () => {
 
   const uploadMediaClick = (roomNumber) => {
 
-    console.log(publicRuntimeConfig.cloudinaryCloudName);
-    console.log(publicRuntimeConfig.cloudinaryUploadPreset);
-
     var myWidget = cloudinary.createUploadWidget({
       cloudName: publicRuntimeConfig.cloudinaryCloudName,
       upload_preset: publicRuntimeConfig.cloudinaryUploadPreset,
