@@ -23,6 +23,9 @@ export default async (req, res) => {
   // });
 
   function loadHandler() {
+    res.status(200).json(db.filename);
+    return;
+
     // if database did not exist it will be empty so I will intitialize here
     var rooms = db.getCollection('rooms');
     
