@@ -30,6 +30,7 @@ export default async (req, res) => {
     
     if (rooms === null) {
       rooms = db.addCollection('rooms');
+      rooms.insert(roomData);
 
       if (rooms === null) {
         res.status(200).json('rooms === null');
@@ -38,12 +39,6 @@ export default async (req, res) => {
         res.status(200).json(rooms.data);
       }
       return;
-      try {
-          rooms.insert(roomData);
-          // db.saveDatabase();
-      } catch (error) {
-        res.status(200).json(error);
-      }
     }
     res.status(200).json(rooms.data);
   }
