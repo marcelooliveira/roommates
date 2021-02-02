@@ -5,20 +5,22 @@ import { data as roomData } from '../../../data/data.js';
 
 export default async (req, res) => {
   
-  var db = new loki('roommates.db');
-  res.status(200).json(db.filename);
-  return;
-
-  var adapter = new lfsa();
-  
-  db = new loki('roommates.db', 
+  var db = new loki('roommates.db',
   {
-    adapter: adapter,
     autoload: true,
-    autoloadCallback : loadHandler,
-    autosave: true, 
-    autosaveInterval: 10000 // 10 seconds
+    autoloadCallback : loadHandler
   });
+
+  // var adapter = new lfsa();
+  
+  // db = new loki('roommates.db', 
+  // {
+  //   adapter: adapter,
+  //   autoload: true,
+  //   autoloadCallback : loadHandler,
+  //   autosave: true, 
+  //   autosaveInterval: 10000 // 10 seconds
+  // });
 
   function loadHandler() {
     // if database did not exist it will be empty so I will intitialize here
