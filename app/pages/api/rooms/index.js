@@ -29,17 +29,17 @@ export default async (req, res) => {
     //   }
     // }
     // res.status(200).json(rooms.data);
-
-    res.status(200).json({
-      "number": 1,
-      "price": 124,
-      "address": "4762  Francis Mine",
-      "pic": "/img/01.jpg",
-      "bedrooms": 5,
-      "bathrooms": 4,
-      "cars": 3,
-      "owner": "marcelooliveira"
-    });
-
   }
+
+  res.status(200).json({
+    "number": 1,
+    "price": 124,
+    "address": "4762  Francis Mine",
+    "pic": "/img/01.jpg",
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "cars": 3,
+    "owner": "marcelooliveira"
+  });
+
 };
