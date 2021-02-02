@@ -34,6 +34,7 @@ const Home = () => {
       showAdvancedOptions: true
     }, (error, result) => { 
       
+      console.log('error: ' + error);
       console.log('result.event: ' + result.event);
       if (result.event == "success") {
         console.log(result.info);
