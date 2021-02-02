@@ -11,7 +11,7 @@ export default async (req, res) => {
     autosaveInterval: 10000 // 10 seconds
   });
 
-  res.status(200).json(loki);
+  res.status(200).json(db);
   return;
 
   function loadHandler() {
