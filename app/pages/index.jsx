@@ -55,7 +55,7 @@ const Home = () => {
             {data.map((room) => {
               let buttons;
               
-              if (user.login === room.owner) {
+              if (user && user.login === room.owner) {
                 buttons = 
                 <Row>
                   <button 

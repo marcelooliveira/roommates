@@ -6,14 +6,20 @@ import { data as roomData } from '../../../data/data.js';
 export default async (req, res) => {
 
   var adapter = new lfsa();
-  var db = new loki('roommates.db', 
-  {
-    adapter: adapter,
-    autoload: true,
-    autoloadCallback : loadHandler,
-    autosave: true, 
-    autosaveInterval: 10000 // 10 seconds
-  });
+
+  let db;
+  try {
+    db = new loki('roommates.db', 
+    {
+      adapter: adapter,
+      autoload: true,
+      autoloadCallback : loadHandler,
+      autosave: true, 
+      autosaveInterval: 10000 // 10 seconds
+    });
+  } catch (error) {
+    console.log(error);
+  }
 
   function loadHandler() {
     // if database did not exist it will be empty so I will intitialize here
@@ -31,7 +37,7 @@ export default async (req, res) => {
     // res.status(200).json(rooms.data);
   }
 
-  res.status(200).json({
+  res.status(200).json([{
     "number": 1,
     "price": 124,
     "address": "4762  Francis Mine",
@@ -40,6 +46,6 @@ export default async (req, res) => {
     "bathrooms": 4,
     "cars": 3,
     "owner": "marcelooliveira"
-  });
+  }]);
 
 };
