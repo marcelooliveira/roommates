@@ -61,7 +61,10 @@ const Home = () => {
                     className="btn btn-primary btn-sm"
                     onClick={uploadMediaClick.bind(this, room.number)}><FontAwesomeIcon icon={fasUpload} />&nbsp;Upload Video</button>
                   &nbsp;
-                  <Button size="sm" className="btn-success"><FontAwesomeIcon icon={fasPlay} />&nbsp;Play Video</Button>
+                  <Button 
+                    href={`/play-video/${room.number}`}
+                    target="_blank" size="sm" className="btn-success"><FontAwesomeIcon icon={fasPlay} />&nbsp;Play Video
+                  </Button>
                 </Row>;
               } 
               else {
