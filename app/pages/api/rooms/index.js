@@ -17,6 +17,10 @@ export default async (req, res) => {
   
   function loadHandler() {
     
+    res.status(200).json(db);
+    return;
+
+
     var rooms = db.getCollection('rooms');
     
     if (rooms === null) {

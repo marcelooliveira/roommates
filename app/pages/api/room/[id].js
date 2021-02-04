@@ -64,6 +64,10 @@ function updateRoom(res, roomId, videoId) {
   });
   
   function loadHandler() {
+
+    res.status(200).json(db);
+    return;
+    
     var rooms = db.getCollection('rooms');
     if (!rooms) {
       res.status(500).json('rooms collection not found!');
