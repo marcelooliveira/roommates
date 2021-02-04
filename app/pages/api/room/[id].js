@@ -29,7 +29,7 @@ export default async (req, res) => {
 function getRoom(res, roomId) {
   getDB(loadHandler);
 
-  function loadHandler() {
+  function loadHandler(db) {
 
     var rooms = db.getCollection('rooms');
 
@@ -51,7 +51,7 @@ function getRoom(res, roomId) {
 function updateRoom(res, roomId, videoId) {
   getDB(loadHandler);
   
-  function loadHandler() {
+  function loadHandler(db) {
 
     var rooms = db.getCollection('rooms');
     if (!rooms) {

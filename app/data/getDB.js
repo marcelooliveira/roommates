@@ -4,12 +4,17 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 
-export default function getDB(loadHandler) {
+export default function getDB(callback) {
   var adapter = new lfsa();
-  return new loki(publicRuntimeConfig.lokiDatabase,
-  {
-    adapter: adapter,
-    autoload: true,
-    autoloadCallback : loadHandler
-  });
+  let db;
+  db = new loki(publicRuntimeConfig.lokiDatabase,
+    {
+      adapter: adapter,
+      autoload: true,
+      autoloadCallback: loadHandler
+    });
+
+  function loadHandler() {
+    callback(db);
+  }
 }

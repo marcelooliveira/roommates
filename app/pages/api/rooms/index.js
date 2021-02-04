@@ -2,10 +2,9 @@ import { data as roomData } from '../../../data/data.js';
 import getDB from '../../../data/getDB.js';
 
 export default async (req, res) => {
-  
   getDB(loadHandler);
   
-  function loadHandler() {
+  function loadHandler(db) {
     
     var rooms = db.getCollection('rooms');
 
