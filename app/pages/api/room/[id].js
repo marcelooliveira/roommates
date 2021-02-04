@@ -30,10 +30,10 @@ export default async (req, res) => {
 };
 
 function updateRoom(res, roomId, videoId) {
-  // var adapter = new lfsa();
+  var adapter = new lfsa();
   var db = new loki(publicRuntimeConfig.lokiDatabase,
   {
-    // adapter: adapter,
+    adapter: adapter,
     autoload: true,
     autoloadCallback : loadHandler
   });
@@ -59,10 +59,10 @@ function updateRoom(res, roomId, videoId) {
 }
 
 function getRoom(res, roomId) {
-  // var adapter = new lfsa();
+  var adapter = new lfsa();
   var db = new loki(publicRuntimeConfig.lokiDatabase,
   {
-    // adapter: adapter,
+    adapter: adapter,
     autoload: true,
     autoloadCallback : loadHandler
   });
