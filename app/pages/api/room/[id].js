@@ -6,13 +6,13 @@ const { publicRuntimeConfig } = getConfig();
 
 export default async (req, res) => {
   var id = req.query['id'];
+  if (isNaN(id)) {
+    res.status(400).end(`${id} Not a Number`) //Bad Request
+    return;
+  }
 
   switch (req.method) {
     case 'GET':
-      if (isNaN(id)) {
-        res.status(400).end(`${id} Not a Number`) //Bad Request
-        return;
-      }
       getRoom(res, id);
       break
     case 'POST':
