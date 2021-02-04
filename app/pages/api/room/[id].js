@@ -79,6 +79,7 @@ function updateRoom(res, roomId, videoId) {
     doc.videoId = videoId;
     rooms.update(doc);
     db.saveDatabase();
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.status(200).json('videoId ' + videoId + ' updated successfully.');
   }
 }
