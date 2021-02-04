@@ -65,7 +65,12 @@ function getRoom(res, roomId) {
   
   function loadHandler() {
     var rooms = db.getCollection('rooms');
-  
+
+    if (!rooms) {
+      res.status(500).json('rooms collection not found!');
+      return;
+    }
+
     let doc = rooms.get(1);
     // let doc = rooms.get(roomId);
     if (!doc) {
