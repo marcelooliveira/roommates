@@ -38,13 +38,9 @@ function getRoom(res, roomId) {
 
     var rooms = db.getCollection('rooms');
 
-    res.status(200).json(rooms);
-    return;
-    
     if (rooms === null) {
-      rooms = db.addCollection('rooms');
-      rooms.insert(roomData);
-      db.saveDatabase();
+      res.status(404).end(`rooms collection Not Found`);
+      return;
     }
 
     let doc = rooms.get(roomId);

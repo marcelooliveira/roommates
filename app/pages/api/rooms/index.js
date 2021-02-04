@@ -19,9 +19,6 @@ export default async (req, res) => {
     
     var rooms = db.getCollection('rooms');
 
-    res.status(200).json(rooms);
-    return;
-
     if (rooms === null) {
       rooms = db.addCollection('rooms');
       rooms.insert(roomData);
