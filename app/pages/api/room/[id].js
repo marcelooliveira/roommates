@@ -40,7 +40,11 @@ function updateRoom(res, roomId, videoId) {
   
   function loadHandler() {
     var rooms = db.getCollection('rooms');
-    
+    if (!rooms) {
+      res.status(500).json('rooms collection not found!');
+      return;
+    }
+
     let doc = rooms.get(roomId);
     if (!doc) {
       res.status(404).end(`roomId ${roomId} Not Found`);
@@ -66,13 +70,7 @@ function getRoom(res, roomId) {
   function loadHandler() {
     var rooms = db.getCollection('rooms');
 
-    if (!rooms) {
-      res.status(500).json('rooms collection not found!');
-      return;
-    }
-
-    let doc = rooms.get(1);
-    // let doc = rooms.get(roomId);
+    let doc = rooms.get(roomId);
     if (!doc) {
       res.status(404).end(`roomId ${roomId} Not Found`);
       return;
