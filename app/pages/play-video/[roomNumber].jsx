@@ -18,37 +18,19 @@ const { publicRuntimeConfig } = getConfig();
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
 const PlayVideo = () => {
-  const { user, mutateUser } = useUser();
   const router = useRouter()
   const { roomNumber } = router.query;
 
-  const { data, error } = useSWR('/api/rooms', fetcher)
+  const { data, error } = useSWR('/api/room/' + roomNumber, fetcher)
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
-
-  const uploadMediaClick = (roomNumber) => {
-
-    var myWidget = cloudinary.createUploadWidget({
-      cloudName: publicRuntimeConfig.cloudinaryCloudName,
-      upload_preset: publicRuntimeConfig.cloudinaryUploadPreset,
-      showAdvancedOptions: false
-    }, (error, result) => { 
-      
-      console.log('error: ' + error);
-      console.log('result.event: ' + result.event);
-      if (result.event == "success") {
-        console.log(result.info);
-      } 
-      else {
-        console.log(error);
-      }
-    })
   
-    myWidget.update({tags: ['room-' + roomNumber]});
-    myWidget.open();
-  }
-  
+  const videoUrl = 'https://player.cloudinary.com/embed/'
+  + '?cloud_name=' + publicRuntimeConfig.cloudinaryCloudName
+  + '&public_id=' + data.videoId
+  + '&fluid=true&controls=true&source_types%5B0%5D=mp4';
+
   return (
     <Layout>
       <div className="component-container p-4">
@@ -56,16 +38,33 @@ const PlayVideo = () => {
           <Row>
               <Col className="col-xs-12 col-sm-12 col-md-12 p-3">
                 <Card className="shadow">
-                  <Card.Body>
-                    <iframe
-                      src="https://player.cloudinary.com/embed/?cloud_name=dthv50qgh&public_id=wzrcoqodtjns4ha1kgxi&fluid=true&controls=true&source_types%5B0%5D=mp4"
-                      width="640"
-                      height="400"
-                      allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-                      allowfullscreen
-                      frameborder="0"
-                      ></iframe>
-                  </Card.Body>
+                  <iframe
+                    src={videoUrl}
+                    // width="640"
+                    height="400"
+                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                    allowfullscreen
+                    frameborder="0"
+                    ></iframe>
+                    <Card.Body>
+                      <h5 className="card-title">
+                        <NumberFormat value={data.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                        &nbsp;/&nbsp;week
+                        <FontAwesomeIcon icon={farHeart} className="text-danger float-right" />
+                      </h5>
+                      <Card.Text><b>{data.address}</b></Card.Text>
+                      <Card.Text><b>owner: {data.owner}</b></Card.Text>
+                      <Card.Text className="description" title="{realEstate.description}">
+                        <b>
+                          <FontAwesomeIcon icon={fasBed} />
+                          <span>&nbsp;{data.bedrooms}&nbsp;</span>
+                          <FontAwesomeIcon icon={fasBath} />
+                          <span>&nbsp;{data.bathrooms}&nbsp;</span>
+                          <FontAwesomeIcon icon={fasCar} />
+                          <span>&nbsp;{data.cars}&nbsp;</span>
+                        </b>
+                      </Card.Text>
+                    </Card.Body>
                 </Card>
               </Col>
             </Row>

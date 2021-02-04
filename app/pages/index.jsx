@@ -8,13 +8,14 @@ import { faUpload as fasUpload, faPlay as fasPlay, faDownload as fasDownload } f
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { default as NumberFormat } from 'react-number-format';
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import useUser from "../lib/useUser";
 import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
+
 
 const Home = () => {
   const { user, mutateUser } = useUser();
@@ -23,25 +24,34 @@ const Home = () => {
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
-  const uploadMediaClick = (roomNumber) => {
+  const uploadMediaClick = async (id) => {
 
     var myWidget = cloudinary.createUploadWidget({
       cloudName: publicRuntimeConfig.cloudinaryCloudName,
       upload_preset: publicRuntimeConfig.cloudinaryUploadPreset,
-      showAdvancedOptions: false
+      showAdvancedOptions: true
     }, (error, result) => { 
       
-      console.log('error: ' + error);
-      console.log('result.event: ' + result.event);
       if (result.event == "success") {
-        console.log(result.info);
+        if (result.info.resource_type == "video") {
+  
+          var videoId = result.info.public_id;
+          
+          fetch('/api/room/' + id, {
+            method: 'POST',
+            body: JSON.stringify({ videoId: videoId }),
+            headers: {
+                 'Content-Type': 'application/json'
+            },
+          })
+        }
       } 
       else {
         console.log(error);
       }
     })
   
-    myWidget.update({tags: ['room-' + roomNumber]});
+    myWidget.update({tags: ['room-' + id]});
     myWidget.open();
   }
   
@@ -51,28 +61,33 @@ const Home = () => {
         <div className="center-panel">
           <Row>
             {data.map((room) => {
+              let playButton;
               let buttons;
               
               if (user && user.login === room.owner) {
                 buttons = 
-                <Row>
+                <span>
                   <button 
-                    name="upload_widget" 
-                    className="btn btn-primary btn-sm"
-                    onClick={uploadMediaClick.bind(this, room.number)}><FontAwesomeIcon icon={fasUpload} />&nbsp;Upload Video</button>
-                  &nbsp;
-                  <Button 
-                    href={`/play-video/${room.number}`}
-                    target="_blank" size="sm" className="btn-success"><FontAwesomeIcon icon={fasPlay} />&nbsp;Play Video
-                  </Button>
-                </Row>;
+                  name="upload_widget" 
+                  className="btn btn-primary btn-sm"
+                  onClick={uploadMediaClick.bind(this, room.$loki)}><FontAwesomeIcon icon={fasUpload} />&nbsp;Upload Video</button>
+                </span>;
               } 
-              else {
-                buttons = 
-                <Row>
-                  <Button size="sm" className="btn-warning"><FontAwesomeIcon icon={fasDownload} />&nbsp;Request Video</Button>
-                </Row>;
+
+              if (room.videoId) {
+                playButton = 
+                <Button 
+                href={`/play-video/${room.number}`}
+                target="_blank" size="sm" className="btn-success"><FontAwesomeIcon icon={fasPlay} />&nbsp;Play Video
+                </Button>
               }
+
+              // else {
+              //   buttons = 
+              //   <Row>
+              //     <Button size="sm" className="btn-warning"><FontAwesomeIcon icon={fasDownload} />&nbsp;Request Video</Button>
+              //   </Row>;
+              // }
 
               return (
                 <Col key={room.number} id="hits" className="col-xs-12 col-sm-6 col-md-4 p-3">
@@ -96,7 +111,10 @@ const Home = () => {
                           <span>&nbsp;{room.cars}&nbsp;</span>
                         </b>
                       </Card.Text>
-                      {buttons}
+                      <Row>
+                        {buttons}
+                        {playButton}
+                      </Row>
                     </Card.Body>
                   </Card>
                 </Col>
