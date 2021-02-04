@@ -17,12 +17,11 @@ export default async (req, res) => {
   
   function loadHandler() {
     
-    res.status(200).json(db);
+    var rooms = db.getCollection('rooms');
+
+    res.status(200).json(rooms);
     return;
 
-
-    var rooms = db.getCollection('rooms');
-    
     if (rooms === null) {
       rooms = db.addCollection('rooms');
       rooms.insert(roomData);
