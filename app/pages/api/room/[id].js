@@ -24,6 +24,9 @@ export default async (req, res) => {
       rooms.insert(roomData);
       db.saveDatabase();
     }
-    res.status(200).json(rooms.data);
+
+    var result = rooms.get(1);
+
+    res.status(200).json(result.data);
   }
 };
