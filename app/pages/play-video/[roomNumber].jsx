@@ -5,12 +5,10 @@ import {Row, Col} from 'react-bootstrap'
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { faHome as fasHome, faBed as fasBed, faBath as fasBath, faCar as fasCar } from '@fortawesome/free-solid-svg-icons';
-import { faUpload as fasUpload, faPlay as fasPlay, faDownload as fasDownload } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { default as NumberFormat } from 'react-number-format';
 import useSWR from 'swr'
-import useUser from "../../lib/useUser";
 import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
