@@ -24,6 +24,7 @@ export default async (req, res) => {
       rooms.insert(roomData);
       db.saveDatabase();
     }
+    res.setHeader('Cache-Control', 'no-store, must-revalidate');
     res.status(200).json(rooms.data);
   }
 };
