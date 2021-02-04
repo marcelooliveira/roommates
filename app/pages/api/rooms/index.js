@@ -7,10 +7,10 @@ const { publicRuntimeConfig } = getConfig();
 
 export default async (req, res) => {
   
-  var adapter = new lfsa();
+  // var adapter = new lfsa();
   var db = new loki(publicRuntimeConfig.lokiDatabase,
   {
-    adapter: adapter,
+    // adapter: adapter,
     autoload: true,
     autoloadCallback : loadHandler
   });
