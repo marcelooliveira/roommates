@@ -25,8 +25,12 @@ export default async (req, res) => {
       db.saveDatabase();
     }
 
-    var result = rooms.get(1);
+    let doc = rooms.get(1);
+    if (!doc) {
+      res.status(404).end(`roomId Not Found`);
+      return;
+    }
 
-    res.status(200).json(result.data);
+    res.status(200).json(doc);
   }
 };
