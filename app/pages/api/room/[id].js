@@ -59,6 +59,26 @@ function updateRoom(res, roomId, videoId) {
 }
 
 function getRoom(res, roomId) {
+  // var adapter = new lfsa();
+  // var db = new loki(publicRuntimeConfig.lokiDatabase,
+  // {
+  //   adapter: adapter,
+  //   autoload: true,
+  //   autoloadCallback : loadHandler
+  // });
+  
+  // function loadHandler() {
+  //   var rooms = db.getCollection('rooms');
+
+  //   let doc = rooms.get(roomId);
+  //   if (!doc) {
+  //     res.status(404).end(`roomId ${roomId} Not Found`);
+  //     return;
+  //   }
+
+  //   res.status(200).json(doc);
+  // }
+
   var adapter = new lfsa();
   var db = new loki(publicRuntimeConfig.lokiDatabase,
   {
@@ -68,14 +88,15 @@ function getRoom(res, roomId) {
   });
   
   function loadHandler() {
+    
     var rooms = db.getCollection('rooms');
-
-    let doc = rooms.get(roomId);
+    
+     let doc = rooms.get(roomId);
     if (!doc) {
       res.status(404).end(`roomId ${roomId} Not Found`);
       return;
     }
 
     res.status(200).json(doc);
-  }
+}
 }

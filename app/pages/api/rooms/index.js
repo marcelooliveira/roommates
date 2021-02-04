@@ -5,7 +5,7 @@ import { data as roomData } from '../../../data/data.js';
 export default async (req, res) => {
   
   var adapter = new lfsa();
-  var db = new loki('/tmp/roommates.json',
+  var db = new loki(publicRuntimeConfig.lokiDatabase,
   {
     adapter: adapter,
     autoload: true,
