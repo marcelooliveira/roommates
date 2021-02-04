@@ -99,6 +99,7 @@ const Home = () => {
                         &nbsp;/&nbsp;week
                         <FontAwesomeIcon icon={farHeart} className="text-danger float-right" />
                       </h5>
+                      <Card.Text>{JSON.stringify(room)}</Card.Text>
                       <Card.Text><b>{room.address}</b></Card.Text>
                       <Card.Text><b>owner: {room.owner}</b></Card.Text>
                       <Card.Text className="description" title="{realEstate.description}">
