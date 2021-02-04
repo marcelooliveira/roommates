@@ -44,7 +44,7 @@ function getRoom(res, roomId) {
       db.saveDatabase();
     }
 
-    let doc = rooms.get(1);
+    let doc = rooms.get(roomId);
     if (!doc) {
       res.status(404).end(`roomId Not Found`);
       return;
