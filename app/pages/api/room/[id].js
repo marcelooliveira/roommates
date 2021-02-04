@@ -30,7 +30,7 @@ function getRoom(res, roomId) {
   getDB(loadHandler);
 
   function loadHandler(db) {
-
+    db.loadDatabase();
     var rooms = db.getCollection('rooms');
 
     if (rooms === null) {
@@ -52,7 +52,7 @@ function updateRoom(res, roomId, videoId) {
   getDB(loadHandler);
   
   function loadHandler(db) {
-
+    db.loadDatabase();
     var rooms = db.getCollection('rooms');
     if (!rooms) {
       res.status(500).json('rooms collection not found!');
