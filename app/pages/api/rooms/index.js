@@ -1,11 +1,14 @@
 import loki from 'lokijs';
 import lfsa from 'lokijs/src/loki-fs-structured-adapter';
 import { data as roomData } from '../../../data/data.js';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
 
 export default async (req, res) => {
   
   var adapter = new lfsa();
-  var db = new loki('/tmp/roommates.json',
+  var db = new loki(publicRuntimeConfig.lokiDatabase,
   {
     adapter: adapter,
     autoload: true,

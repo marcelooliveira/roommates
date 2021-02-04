@@ -8,7 +8,8 @@ export const data =
     "bedrooms": 5,
     "bathrooms": 4,
     "cars": 3,
-    "owner": "marcelooliveira"
+    "owner": "marcelooliveira",
+    "videoId": ""
   },
   {
     "number": 2,
@@ -18,7 +19,8 @@ export const data =
     "bedrooms": 4,
     "bathrooms": 4,
     "cars": 3,
-    "owner": "Drizin"
+    "owner": "Drizin",
+    "videoId": ""
   },
   {
     "number": 3,
@@ -28,7 +30,8 @@ export const data =
     "bedrooms": 5,
     "bathrooms": 4,
     "cars": 4,
-    "owner": "marcelooliveira"
+    "owner": "marcelooliveira",
+    "videoId": ""
   },
   {
     "number": 4,
@@ -38,7 +41,8 @@ export const data =
     "bedrooms": 5,
     "bathrooms": 4,
     "cars": 3,
-    "owner": "Drizin"
+    "owner": "Drizin",
+    "videoId": ""
   },
   {
     "number": 5,
@@ -48,7 +52,8 @@ export const data =
     "bedrooms": 4,
     "bathrooms": 3,
     "cars": 5,
-    "owner": "marcelooliveira"
+    "owner": "marcelooliveira",
+    "videoId": ""
   },
   {
     "number": 6,
@@ -58,6 +63,7 @@ export const data =
     "bedrooms": 5,
     "bathrooms": 4,
     "cars": 4,
-    "owner": "Drizin"
+    "owner": "Drizin",
+    "videoId": ""
   }
 ];

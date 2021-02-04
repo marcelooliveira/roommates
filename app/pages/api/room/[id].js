@@ -1,5 +1,8 @@
 import loki from 'lokijs';
 import lfsa from 'lokijs/src/loki-fs-structured-adapter';
+import getConfig from 'next/config';
+
+const { publicRuntimeConfig } = getConfig();
 
 export default async (req, res) => {
   var id = req.query['id'];
@@ -28,7 +31,7 @@ export default async (req, res) => {
 
 function updateRoom(res, roomId, videoId) {
   var adapter = new lfsa();
-  var db = new loki('/tmp/roommates.json',
+  var db = new loki(publicRuntimeConfig.lokiDatabase,
   {
     adapter: adapter,
     autoload: true,
@@ -53,7 +56,7 @@ function updateRoom(res, roomId, videoId) {
 
 function getRoom(res, roomId) {
   var adapter = new lfsa();
-  var db = new loki('/tmp/roommates.json',
+  var db = new loki(publicRuntimeConfig.lokiDatabase,
   {
     adapter: adapter,
     autoload: true,

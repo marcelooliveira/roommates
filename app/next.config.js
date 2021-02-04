@@ -12,6 +12,7 @@ module.exports = {
   publicRuntimeConfig: {
     // Use the CDN in production and localhost for development.
     assetPrefix: isProd ? 'https://roommates-match.netlify.app/' : '',    
+    lokiDatabase: '/tmp/roommatesV3.json',
     staticFolder: '/static',
     cloudinaryCloudName: cloudinaryCloudName,
     cloudinaryUploadPreset: cloudinaryUploadPreset
