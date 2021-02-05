@@ -37,7 +37,7 @@ const Home = () => {
   
           var videoId = result.info.public_id;
           
-          fetch('/api/room/' + id, {
+          fetch('/api/rooms/' + id, {
             method: 'POST',
             body: JSON.stringify({ videoId: videoId }),
             headers: {
