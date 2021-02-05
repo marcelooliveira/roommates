@@ -103,7 +103,10 @@ const Home = () => {
               if (room.videoId && user && user.login && user.login != room.owner
                 && (!room.pendingRequests
                 || room.pendingRequests
-                  .filter(e => e.login === user.login).length === 0)) {
+                  .filter(e => e.login === user.login).length === 0)
+                && (!room.approvedRequests
+                || room.approvedRequests
+                  .filter(e => e && (e.login == user.login)).length == 0)) {
                 requestButton = 
                 <span>
                   <Button size="sm" className="btn-warning"
@@ -151,7 +154,7 @@ const Home = () => {
                         &nbsp;/&nbsp;week
                         <FontAwesomeIcon icon={farHeart} className="text-danger float-right" />
                       </h5>
-                      <Card.Text>{JSON.stringify(room)}</Card.Text>
+                      {/* <Card.Text>{JSON.stringify(room)}</Card.Text> */}
                       {/* <Card.Text><b>{JSON.stringify(user)}</b></Card.Text> */}
                       <Card.Text><b>{room.address}</b></Card.Text>
                       <Card.Text><b>owner: {room.owner}</b></Card.Text>

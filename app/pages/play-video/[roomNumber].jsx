@@ -9,6 +9,7 @@ import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { default as NumberFormat } from 'react-number-format';
 import useSWR, { mutate } from 'swr'
+import useUser from "../../lib/useUser";
 import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
@@ -30,6 +31,7 @@ const approveRequest = async (room, requester) => {
 }
 
 const PlayVideo = () => {
+  const { user, mutateUser } = useUser();
   const router = useRouter()
   const { roomNumber } = router.query;
 
@@ -79,14 +81,19 @@ const PlayVideo = () => {
                 </Card>
               </Col>
             </Row>
-            { data.pendingRequests
+            { 
+            user && user.login && user.login == data.owner
+            && data.pendingRequests
             && data.pendingRequests.map((requester) => {
               return (<Row>
                 <Col>
                   <Card className="shadow">
-                    <Card.Body className="text-right">
-                      <Card.Text>User <b>{requester.login}</b> has requested to watch this video.
-                      &nbsp;
+                    <Card.Body>
+                      <Card.Text>
+                        <img src={requester.avatarUrl} width="64" height="100%" />
+                        &nbsp;
+                        User <b>{requester.login}</b> has requested to watch this video.
+                        &nbsp;
                         <Button size="sm" className="btn-success"
                         onClick={approveRequest.bind(this, data, requester)}>
                           <FontAwesomeIcon icon={fasUserCheck} />&nbsp;Approve
