@@ -4,18 +4,25 @@ import getDB from '../../../data/getDB.js';
 export default async (req, res) => {
   switch (req.method) {
     case 'GET':
-      if (!req.query['id']) {
-        res.status(400).end('Invalid id') //Bad Request
+      const roomId = req.query['id'];
+      if (!roomId) {
+        res.status(400).end() //Bad Request
         return;
       }
-      getRoom(res, req.query['id']);
+
+      if (parseInt(roomId) > 0) {
+        getRoom(res, roomId);
+        return;
+      }
+
+      getAllRooms(res);
       break
     case 'POST':
       if (!req.body.videoId) {
         res.status(400).end() //Bad Request
         return;
       }
-      updateRoom(res, req.query['id'], req.body.videoId);
+      updateRoom(res, roomId, req.body.videoId);
       break
     default:
       res.setHeader('Allow', ['GET', 'POST'])
@@ -44,6 +51,23 @@ function getRoom(res, roomId) {
     }
 
     res.status(200).json(doc);
+  }
+}
+
+function getAllRooms(res) {
+  getDB(loadHandler);
+
+  function loadHandler(db) {
+
+    var rooms = db.getCollection('rooms');
+
+    if (rooms === null) {
+      rooms = db.addCollection('rooms');
+      rooms.insert(roomData);
+      db.saveDatabase();
+    }
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.status(200).json(rooms.data);
   }
 }
 

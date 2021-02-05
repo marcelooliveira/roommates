@@ -19,7 +19,7 @@ const fetcher = (url) => fetch(url).then((r) => r.json());
 
 const Home = () => {
   const { user, mutateUser } = useUser();
-  const { data, error } = useSWR('/api/rooms', fetcher)
+  const { data, error } = useSWR('/api/rooms/0', fetcher)
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
