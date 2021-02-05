@@ -2,9 +2,10 @@ import { data as roomData } from '../../../data/data.js';
 import getDB from '../../../data/getDB.js';
 
 export default async (req, res) => {
+  const roomId = req.query['id'];
+  
   switch (req.method) {
     case 'GET':
-      const roomId = req.query['id'];
       if (!roomId) {
         res.status(400).end() //Bad Request
         return;
