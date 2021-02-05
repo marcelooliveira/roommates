@@ -19,11 +19,7 @@ export default async (req, res) => {
       getAllRooms(res);
       break
     case 'POST':
-      if (!req.body.videoId) {
-        res.status(400).end() //Bad Request
-        return;
-      }
-      updateRoom(res, roomId, req.body.videoId);
+      updateRoom(res, roomId, req.body);
       break
     default:
       res.setHeader('Allow', ['GET', 'POST'])
@@ -72,7 +68,7 @@ function getAllRooms(res) {
   }
 }
 
-function updateRoom(res, roomId, videoId) {
+function updateRoom(res, roomId, requestBody) {
   getDB(loadHandler);
   
   function loadHandler(db) {
@@ -88,10 +84,38 @@ function updateRoom(res, roomId, videoId) {
       return;
     }
 
-    doc.videoId = videoId;
-    rooms.update(doc);
+    if (requestBody.videoId) {
+      doc.videoId = requestBody.videoId;
+      rooms.update(doc);
+    }
+
+    if (requestBody.requester) {
+      if (!doc.pendingRequests) {
+        doc.pendingRequests = [];
+      }
+
+      if (doc.pendingRequests.filter(e => e.login === requestBody.requester.login).length == 0) {
+        doc.pendingRequests.push(requestBody.requester);
+        rooms.update(doc);
+      }
+    }
+
+    if (requestBody.approvedRequester) {
+      var filtered = doc.pendingRequests.filter(function(pendingRequest, index, arr){ 
+        return pendingRequest.login != requestBody.approvedRequester.login;
+      });
+      
+      doc.pendingRequests = filtered;
+
+      if (!doc.approvedRequests) {
+        doc.approvedRequests = [];
+      }
+      doc.approvedRequests.push(requestBody.approvedRequester);
+      rooms.update(doc);
+    }
+
     db.saveDatabase();
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.status(200).json('videoId ' + videoId + ' updated successfully.');
+    res.status(200).json('Room ' + roomId + ' updated successfully.');
   }
 }

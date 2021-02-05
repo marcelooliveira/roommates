@@ -4,16 +4,30 @@ import Layout from "../../components/Layout";
 import {Row, Col} from 'react-bootstrap'
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { faHome as fasHome, faBed as fasBed, faBath as fasBath, faCar as fasCar } from '@fortawesome/free-solid-svg-icons';
+import { faHome as fasHome, faBed as fasBed, faBath as fasBath, faCar as fasCar, faUserCheck as fasUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { default as NumberFormat } from 'react-number-format';
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
+
+const approveRequest = async (room, requester) => {
+  console.log('room:' + JSON.stringify(room));
+  console.log('requester:' + JSON.stringify(requester));
+
+  fetch('/api/rooms/' + room.$loki, {
+    method: 'POST',
+    body: JSON.stringify({ approvedRequester: requester }),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+  .then(res => mutate(room));
+}
 
 const PlayVideo = () => {
   const router = useRouter()
@@ -38,7 +52,6 @@ const PlayVideo = () => {
                 <Card className="shadow">
                   <iframe
                     src={videoUrl}
-                    // width="640"
                     height="400"
                     allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                     allowfullscreen
@@ -66,6 +79,24 @@ const PlayVideo = () => {
                 </Card>
               </Col>
             </Row>
+            { data.pendingRequests
+            && data.pendingRequests.map((requester) => {
+              return (<Row>
+                <Col>
+                  <Card className="shadow">
+                    <Card.Body className="text-right">
+                      <Card.Text>User <b>{requester.login}</b> has requested to watch this video.
+                      &nbsp;
+                        <Button size="sm" className="btn-success"
+                        onClick={approveRequest.bind(this, data, requester)}>
+                          <FontAwesomeIcon icon={fasUserCheck} />&nbsp;Approve
+                        </Button>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>)
+            })}
         </div>
       </div>
     </Layout>
