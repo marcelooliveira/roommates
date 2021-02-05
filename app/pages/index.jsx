@@ -24,7 +24,7 @@ const Home = () => {
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
-  const uploadMediaClick = async (id) => {
+  const uploadMediaClick = async (room) => {
 
     var myWidget = cloudinary.createUploadWidget({
       cloudName: publicRuntimeConfig.cloudinaryCloudName,
@@ -37,13 +37,14 @@ const Home = () => {
   
           var videoId = result.info.public_id;
           
-          fetch('/api/rooms/' + id, {
+          fetch('/api/rooms/' + room.$loki, {
             method: 'POST',
             body: JSON.stringify({ videoId: videoId }),
             headers: {
                  'Content-Type': 'application/json'
             },
           })
+          .then(res => mutate(room));
         }
       } 
       else {
@@ -51,7 +52,7 @@ const Home = () => {
       }
     })
   
-    myWidget.update({tags: ['room-' + id]});
+    myWidget.update({tags: ['room-' + room.$loki]});
     myWidget.open();
   }
   
@@ -70,7 +71,7 @@ const Home = () => {
                   <button 
                   name="upload_widget" 
                   className="btn btn-primary btn-sm"
-                  onClick={uploadMediaClick.bind(this, room.$loki)}><FontAwesomeIcon icon={fasUpload} />&nbsp;Upload Video</button>
+                  onClick={uploadMediaClick.bind(this, room)}><FontAwesomeIcon icon={fasUpload} />&nbsp;Upload Video</button>
                 </span>;
               } 
 
@@ -99,7 +100,6 @@ const Home = () => {
                         &nbsp;/&nbsp;week
                         <FontAwesomeIcon icon={farHeart} className="text-danger float-right" />
                       </h5>
-                      <Card.Text>{JSON.stringify(room)}</Card.Text>
                       <Card.Text><b>{room.address}</b></Card.Text>
                       <Card.Text><b>owner: {room.owner}</b></Card.Text>
                       <Card.Text className="description" title="{realEstate.description}">
