@@ -19,7 +19,7 @@ const PlayVideo = () => {
   const router = useRouter()
   const { roomNumber } = router.query;
 
-  const { data, error } = useSWR('/api/room/' + roomNumber, fetcher)
+  const { data, error } = useSWR('/api/rooms/' + roomNumber, fetcher)
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
