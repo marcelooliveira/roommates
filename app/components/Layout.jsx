@@ -8,6 +8,7 @@ const Layout = ({ children }) => (
     <Head>
       <title>Your Roommate Matching App</title>
       <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+      <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script> 
     </Head>
     <style jsx global>{`
       *,

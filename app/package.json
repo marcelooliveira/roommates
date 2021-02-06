@@ -62,6 +62,7 @@
     "@lokidb/indexed-storage": "^2.1.0",
     "bootstrap": "^4.6.0",
     "lokijs": "^1.5.11",
+    "netlify-identity-widget": "^1.9.1",
     "react-bootstrap": "^1.4.3",
     "react-number-format": "^4.4.4"
   }

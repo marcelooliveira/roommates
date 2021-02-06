@@ -68,6 +68,7 @@ const Home = () => {
   
   return (
     <Layout>
+      <div data-netlify-identity-menu></div>
       <div className="component-container p-4">
         <div className="center-panel">
           <Row>
